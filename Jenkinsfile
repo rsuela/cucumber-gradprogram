@@ -1,39 +1,28 @@
 pipeline {
     agent {
-        kubernetes {
-          label 'maven-node'
-          yamlFile 'KubernetesPod.yaml'
-        }
+        label 'Windows'
     }
   stages {
     stage('Checkout') {
       steps {
-        container('maven') {
-          checkout scm
-        }
+        checkout scm
       }
     }
     stage('build') {
       steps {
-          container('maven') {
-            sh "mvn test"
-          }
+        sh "mvn test"
       }
     }
     stage('archive') {
       steps {
-          container('maven') {
-            archive 'target/*.jar'
-          }
+        archive 'target/*.jar'
       }
     }
   }
   post {
       always{
-            container('maven') {
-                junit '**/target/surefire-reports/TEST-*.xml'
-            }
-          //logstashSend failBuild: true, maxLines: 1000
+        junit '**/target/surefire-reports/TEST-*.xml'
       }
+    }
   }
 }
