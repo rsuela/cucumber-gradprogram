@@ -10,7 +10,7 @@ pipeline {
     }
     stage('build') {
       steps {
-        sh "mvn test"
+        bat "gradlew test --rerun-tasks --info"
       }
     }
     stage('archive') {
