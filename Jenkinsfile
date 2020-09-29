@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'Windows'
+        label 'Master'
     }
   stages {
     stage('Checkout') {
